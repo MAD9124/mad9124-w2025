@@ -7,7 +7,6 @@ const studentRouter = require('./routers/students');
 const app = express();
 
 app.use(express.json());
-
 app.use('/api/students', studentRouter);
 
 const PORT = process.env.PORT || 4000;
