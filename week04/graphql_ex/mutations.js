@@ -1,13 +1,15 @@
-"use strict";
+'use strict';
 
 const {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLString,
   GraphQLInt,
-} = require("graphql");
-const drivers = require("./data/drivers");
-const { DriverType } = require("./types");
+} = require('graphql');
+const drivers = require('./data/drivers');
+const { DriverType } = require('./types');
+
+let lastId = 10;
 
 const createDriver = {
   type: DriverType,
@@ -16,7 +18,8 @@ const createDriver = {
     wins: { type: new GraphQLNonNull(GraphQLInt) },
   },
   resolve: (_source, { name, wins = 0 }) => {
-    const id = Date.now();
+    const id = lastId++;
+
     const newDriver = {
       id,
       name,
@@ -59,7 +62,7 @@ const updateDriver = {
 };
 
 const mutation = new GraphQLObjectType({
-  name: "Mutation",
+  name: 'Mutation',
   fields: {
     createDriver,
     deleteDriver,
