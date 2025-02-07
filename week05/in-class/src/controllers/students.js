@@ -1,128 +1,99 @@
+const { NotFoundError, BadRequestError } = require('../middleware/errors');
 const students = require('../models/students.json');
+const studentService = require('../services/student');
 
 // CREATE
 // create a new student
-const create = (req, res) => {
-  const { firstName, lastName } = req.body;
+const create = (req, res, next) => {
+  try {
+    const { firstName, lastName } = req.body;
 
-  // find new student data
-  const newStudent = {
-    id: Date.now(), // NOTE - this is not ideal, but will do for now
-    firstName,
-    lastName,
-  };
+    const newStudent = studentService.create(firstName, lastName);
 
-  // save new student in our array
-  students.push(newStudent);
-
-  // respond with new student (including it's id)
-  res.status(201).json({
-    data: newStudent,
-  });
+    // respond with new student (including it's id)
+    res.status(201).json({
+      data: newStudent,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 // READ
 // return a collection of students
-const getAll = (req, res) => {
-  res.status(200).json({
-    data: students,
-    isFromChrome: req.isFromChrome,
-  });
+const getAll = (req, res, next) => {
+  try {
+    const students = studentService.getAll();
+    res.status(200).json({
+      data: students,
+      isFromChrome: req.isFromChrome,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 // return the student matching the id value
-const getById = (req, res) => {
-  const studentId = req.params.id;
-  const student = students.find((s) => s.id === parseInt(studentId, 10));
+const getById = (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const student = studentService.getById(id);
 
-  if (!student) {
-    res.status(404).json({
-      error: `student with id ${studentId} not found`,
+    res.json({
+      data: student,
     });
-    return;
+  } catch (error) {
+    next(error);
   }
-
-  res.json({
-    data: student,
-  });
 };
 
 // replace all properties of a student
-const replace = (req, res) => {
-  // 1 find the student
-  // const id = req.params.id;
-  const { id } = req.params;
-  const foundStudent = students.find(
-    (student) => student.id === parseInt(id, 10)
-  );
+const replace = (req, res, next) => {
+  try {
+    // 1 find the student
+    // const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
+    const { firstName, lastName } = req.body;
 
-  // 1a no student - respond 404
-  if (!foundStudent) {
-    res.status(404).json({
-      error: `student with id ${id} not found`,
+    const foundStudent = studentService.replace(id, { firstName, lastName });
+
+    // 4 respond accordingly
+    res.json({
+      data: foundStudent,
     });
-    return;
+  } catch (error) {
+    next(error);
   }
-
-  // 2 get the new data from the request
-  // 3 update the data in memory
-  const { firstName, lastName } = req.body;
-
-  if (!firstName || !lastName) {
-    res.status(400).json({
-      error: 'firstName and lastName required',
-    });
-  }
-
-  foundStudent.firstName = firstName;
-  foundStudent.lastName = lastName;
-
-  // 4 respond accordingly
-  res.json({
-    data: foundStudent,
-  });
 };
 
 // update some properties of a student
-const update = (req, res) => {
-  const studentId = parseInt(req.params.id, 10);
+const update = (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id, 10);
 
-  const foundStudent = students.find((student) => student.id === studentId);
+    const foundStudent = studentService.update(id, req.body);
 
-  if (!foundStudent) {
-    res.status(404).json({
-      error: `student with id ${studentId} not found`,
+    res.json({
+      data: foundStudent,
     });
-    return;
+  } catch (error) {
+    next(error);
   }
-
-  for (const key of ['firstName', 'lastName']) {
-    if (req.body[key]) foundStudent[key] = req.body[key];
-  }
-
-  res.json({
-    data: foundStudent,
-  });
 };
 
 // destroy the record for a student
-const deleteOne = (req, res) => {
-  const studentId = parseInt(req.params.id);
+const deleteOne = (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id, 10);
 
-  const studentIdx = students.findIndex(({ id }) => id === studentId);
+    const deletedStudent = studentService.deleteOne(id);
 
-  if (studentIdx < 0) {
-    res.status(404).json({
-      error: `student with id ${studentId} not found`,
+    res.json({
+      data: deletedStudent,
     });
-    return;
+  } catch (error) {
+    next(error);
   }
-  // const deletedStudent = students[studentIdx];
-  const [deletedStudent] = students.splice(studentIdx, 1);
-
-  res.json({
-    data: deletedStudent,
-  });
 };
 
 module.exports = {

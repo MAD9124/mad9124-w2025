@@ -5,6 +5,12 @@ const morgan = require('morgan');
 
 const studentRouter = require('./routers/students');
 const testMiddleware = require('./middleware/test');
+const {
+  errorHandler,
+  ApiError,
+  NotFoundError,
+  ForbiddenError,
+} = require('./middleware/errors');
 
 const app = express();
 
@@ -19,9 +25,8 @@ app.use((req, _res, next) => {
 });
 
 app.use('/api/students', studentRouter);
-app.get('/tim', (req, res) => {
-  res.json({ hello: 'tim1' });
-});
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, (err) => {
