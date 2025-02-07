@@ -23,9 +23,10 @@ const create = (req, res) => {
 
 // READ
 // return a collection of students
-const getAll = (_req, res) => {
+const getAll = (req, res) => {
   res.status(200).json({
     data: students,
+    isFromChrome: req.isFromChrome,
   });
 };
 

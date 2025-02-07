@@ -4,12 +4,14 @@ const express = require('express');
 const morgan = require('morgan');
 
 const studentRouter = require('./routers/students');
+const testMiddleware = require('./middleware/test');
 
 const app = express();
 
 app.use(express.json());
 
 app.use(morgan('tiny'));
+app.use(testMiddleware);
 
 app.use((req, _res, next) => {
   console.log(`${req.method} ${req.url}`);
