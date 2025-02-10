@@ -1,8 +1,8 @@
 const walkService = require('../services/walk');
 
-const create = (req, res, next) => {
+const create = async (req, res, next) => {
   try {
-    const newWalk = walkService.create(req.body);
+    const newWalk = await walkService.create(req.body);
     res.status(201).json({
       data: newWalk,
     });
