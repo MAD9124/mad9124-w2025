@@ -7,7 +7,7 @@ const BASE_URL = 'https://api.weatherapi.com/v1/history.json';
 
 const getWeather = async (city, date) => {
   // 1. check the cache
-  const cachedWeather = cacheService.getWeather(city, date);
+  const cachedWeather = await cacheService.getWeather(city, date);
 
   // 2. if found, return right away
   if (cachedWeather) {

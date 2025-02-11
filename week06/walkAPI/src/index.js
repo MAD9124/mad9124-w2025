@@ -3,6 +3,9 @@ const express = require('express');
 
 const walkRouter = require('./routers/walk');
 const { errorHandler } = require('./utils/errors');
+const cacheService = require('./services/cache');
+
+cacheService.init();
 
 const app = express();
 app.use(express.json());
