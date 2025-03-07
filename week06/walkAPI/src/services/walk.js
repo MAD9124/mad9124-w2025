@@ -18,6 +18,7 @@ const create = async (body) => {
     city,
     weather,
   };
+
   walks.push(newWalk);
 
   return newWalk;

@@ -11,7 +11,7 @@ const create = async (req, res, next) => {
   }
 };
 
-const getAll = (_req, res) => {
+const getAll = (_req, res, next) => {
   try {
     const walks = walkService.getAll();
     res.json({
@@ -22,7 +22,7 @@ const getAll = (_req, res) => {
   }
 };
 
-const getOne = (req, res) => {
+const getOne = (req, res, next) => {
   const id = parseInt(req.params.id);
   try {
     const walk = walkService.getOne(id);
@@ -34,11 +34,11 @@ const getOne = (req, res) => {
   }
 };
 
-const replace = (req, res) => {
+const replace = (req, res, next) => {
   const id = parseInt(req.params.id);
   try {
     const updatedWalk = walkService.replace(id, req.body);
-    res.status(201).json({
+    res.json({
       data: updatedWalk,
     });
   } catch (err) {
@@ -46,11 +46,11 @@ const replace = (req, res) => {
   }
 };
 
-const update = (req, res) => {
+const update = (req, res, next) => {
   const id = parseInt(req.params.id);
   try {
     const updatedWalk = walkService.update(id, req.body);
-    res.status(201).json({
+    res.json({
       data: updatedWalk,
     });
   } catch (err) {
@@ -58,7 +58,7 @@ const update = (req, res) => {
   }
 };
 
-const deleteOne = (req, res) => {
+const deleteOne = (req, res, next) => {
   const id = parseInt(req.params.id);
   try {
     const deletedWalk = walkService.deleteOne(id);
