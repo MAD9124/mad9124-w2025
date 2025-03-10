@@ -1,0 +1,20 @@
+{
+  "name": "exercise",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Tim Robillard",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
