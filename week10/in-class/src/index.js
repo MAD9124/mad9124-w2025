@@ -1,10 +1,14 @@
 'use strict';
 
+require('dotenv/config');
 const express = require('express');
 const morgan = require('morgan');
 
 const studentRouter = require('./routers/students');
 const { errorHandler } = require('./middleware/errors');
+const { connect } = require('./models/db');
+
+connect();
 
 const app = express();
 
