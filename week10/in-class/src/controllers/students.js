@@ -1,9 +1,9 @@
 const studentService = require('../services/student');
 
-const create = (req, res, next) => {
+const create = async (req, res, next) => {
   try {
     const { firstName, lastName } = req.body;
-    const newStudent = studentService.create(firstName, lastName);
+    const newStudent = await studentService.create(firstName, lastName);
     res.status(201).json({
       data: newStudent,
     });

@@ -1,17 +1,13 @@
 const { NotFoundError } = require('../middleware/errors');
+const Student = require('../models/Student');
 const students = require('../models/students.json');
 
-const create = (firstName, lastName) => {
-  // find new student data
-  const newStudent = {
-    id: Date.now(), // NOTE - this is not ideal, but will do for now
+const create = async (firstName, lastName) => {
+  const newStudent = new Student({
     firstName,
     lastName,
-  };
-
-  // save new student in our array
-  students.push(newStudent);
-
+  });
+  await newStudent.save();
   return newStudent;
 };
 
