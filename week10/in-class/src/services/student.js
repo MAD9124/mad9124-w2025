@@ -11,10 +11,13 @@ const create = async (firstName, lastName) => {
   return newStudent;
 };
 
-const getAll = () => students;
+const getAll = async () => {
+  const allStudents = await Student.find({});
+  return allStudents;
+};
 
-const getById = (id) => {
-  const student = students.find((s) => s.id === id);
+const getById = async (id) => {
+  const student = await Student.findById(id);
 
   if (!student) throw new NotFoundError(`student with id ${id} not found`);
 

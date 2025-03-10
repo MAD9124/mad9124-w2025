@@ -23,7 +23,7 @@ class NotFoundError extends ApiError {
 }
 
 const errorHandler = (error, _req, res, _next) => {
-  console.error('Error!', error.message);
+  console.error('Error!', error);
 
   if (error instanceof ApiError) {
     res.status(error.status).json({

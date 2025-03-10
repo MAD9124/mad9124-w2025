@@ -12,9 +12,9 @@ const create = async (req, res, next) => {
   }
 };
 
-const getAll = (req, res, next) => {
+const getAll = async (req, res, next) => {
   try {
-    const students = studentService.getAll();
+    const students = await studentService.getAll();
     res.status(200).json({
       data: students,
       isFromChrome: req.isFromChrome,
@@ -24,10 +24,9 @@ const getAll = (req, res, next) => {
   }
 };
 
-const getById = (req, res, next) => {
+const getById = async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id, 10);
-    const student = studentService.getById(id);
+    const student = await studentService.getById(req.params.id);
     res.json({
       data: student,
     });
