@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/api/match", matchRouter);
+app.use("/api/matches", matchRouter);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, (err) => {

@@ -75,6 +75,7 @@ const replaceOne = (req, res) => {
 
   res.json({ data: foundMatch });
 };
+
 const updateOne = (req, res) => {
   const id = +req.params.id;
   const foundMatch = matches.find((match) => match.id === id);
@@ -102,6 +103,7 @@ const updateOne = (req, res) => {
 
   res.json({ data: foundMatch });
 };
+
 const deleteOne = (req, res) => {
   const id = +req.params.id;
   const matchIdx = matches.findIndex((match) => match.id === id);
