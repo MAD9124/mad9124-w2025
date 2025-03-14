@@ -35,11 +35,13 @@ const getById = async (req, res, next) => {
   }
 };
 
-const replace = (req, res, next) => {
+const replace = async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id, 10);
     const { firstName, lastName } = req.body;
-    const foundStudent = studentService.replace(id, { firstName, lastName });
+    const foundStudent = await studentService.replace(req.params.id, {
+      firstName,
+      lastName,
+    });
     res.json({
       data: foundStudent,
     });

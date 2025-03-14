@@ -5,10 +5,14 @@ const studentSchema = new Schema(
     firstName: {
       type: String,
       required: true,
+      minLength: 3,
+      maxLength: 64,
     },
     lastName: {
       type: String,
       required: true,
+      minLength: 3,
+      maxLength: 64,
     },
   },
   {

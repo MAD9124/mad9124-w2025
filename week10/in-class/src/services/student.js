@@ -24,21 +24,13 @@ const getById = async (id) => {
   return student;
 };
 
-const replace = (id, body) => {
-  const foundStudent = students.find((student) => student.id === id);
+const replace = async (id, body) => {
+  const foundStudent = Student.findByIdAndUpdate(id, body, {
+    new: true,
+    runValidators: true,
+  });
 
-  // 1a no student - respond 404
   if (!foundStudent) throw new NotFoundError(`student with id ${id} not found`);
-
-  // 2 get the new data from the request
-  // 3 update the data in memory
-  const { firstName, lastName } = body;
-
-  if (!firstName || !lastName)
-    throw new BadRequestError('firstName and lastName required');
-
-  foundStudent.firstName = firstName;
-  foundStudent.lastName = lastName;
 
   return foundStudent;
 };
