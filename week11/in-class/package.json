@@ -1,0 +1,20 @@
+{
+  "name": "in-class",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "Tim Robillard",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.12.1",
+    "morgan": "^1.10.0"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
