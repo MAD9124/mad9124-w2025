@@ -2,7 +2,7 @@ const studentService = require('../services/student');
 
 const create = async (req, res, next) => {
   try {
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName } = req.sanitizedBody;
     const newStudent = await studentService.create(firstName, lastName);
     res.status(201).json({
       data: newStudent,
@@ -37,7 +37,7 @@ const getById = async (req, res, next) => {
 
 const replace = async (req, res, next) => {
   try {
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName } = req.sanitizedBody;
     const foundStudent = await studentService.replace(req.params.id, {
       firstName,
       lastName,
@@ -53,7 +53,7 @@ const replace = async (req, res, next) => {
 const update = (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
-    const foundStudent = studentService.update(id, req.body);
+    const foundStudent = studentService.update(id, req.sanitizedBody);
     res.json({
       data: foundStudent,
     });
