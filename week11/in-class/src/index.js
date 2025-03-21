@@ -6,6 +6,7 @@ const compression = require('compression');
 const cors = require('cors');
 const express = require('express');
 const expressMongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 const morgan = require('morgan');
 
 const studentRouter = require('./routers/students');
@@ -26,7 +27,11 @@ app.use(
 );
 
 // app.use(cookieParser());
-app.use(compression());
+if (process.env.NODE_ENV === 'production') {
+  app.use(helmet());
+  app.use(compression());
+}
+
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(expressMongoSanitize());
