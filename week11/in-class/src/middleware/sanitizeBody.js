@@ -32,10 +32,8 @@ const stripTags = (body) => {
 };
 
 const sanitizeBody = (req, res, next) => {
-  console.log(req.body);
   const { id, _id, ...attributes } = req.body;
   req.sanitizedBody = stripTags(attributes);
-  console.log(req.sanitizedBody);
 
   next();
 };
