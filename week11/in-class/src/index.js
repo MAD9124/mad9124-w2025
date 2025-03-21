@@ -1,6 +1,9 @@
 'use strict';
 
 require('dotenv/config');
+const compression = require('compression');
+// const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const express = require('express');
 const expressMongoSanitize = require('express-mongo-sanitize');
 const morgan = require('morgan');
@@ -15,10 +18,23 @@ connect();
 
 const app = express();
 
+app.use(
+  cors({
+    origin: (process.env.CORS_ALLOWLIST || '').split(','),
+    // credentials: true,
+  })
+);
+
+// app.use(cookieParser());
+app.use(compression());
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(expressMongoSanitize());
 app.use(sanitizeBody);
+// app.use((req, res, next) => {
+//   console.log(req.cookies);
+//   next();
+// });
 
 app.use('/api/students', studentRouter);
 
