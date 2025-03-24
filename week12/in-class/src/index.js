@@ -15,6 +15,7 @@ const { connect } = require('./models/db');
 const authRouter = require('./routers/auth');
 const studentRouter = require('./routers/students');
 const logger = require('./util/logger');
+const isAuthenticated = require('./middleware/isAuthenticated');
 require('./util/passport');
 
 connect();
@@ -44,7 +45,7 @@ app.use(sanitizeBody);
 // });
 
 app.use('/auth', authRouter);
-app.use('/api/students', studentRouter);
+app.use('/api/students', isAuthenticated, studentRouter);
 
 app.use(errorHandler);
 
