@@ -10,12 +10,12 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 
 const { errorHandler } = require('./middleware/errors');
+const isAuthenticated = require('./middleware/isAuthenticated');
 const sanitizeBody = require('./middleware/sanitizeBody');
 const { connect } = require('./models/db');
 const authRouter = require('./routers/auth');
 const studentRouter = require('./routers/students');
 const logger = require('./util/logger');
-const isAuthenticated = require('./middleware/isAuthenticated');
 require('./util/passport');
 
 connect();
