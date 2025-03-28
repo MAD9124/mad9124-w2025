@@ -1,5 +1,5 @@
-const { NotFoundError, BadRequestError } = require("../middleware/errors");
-const Match = require("../models/Match");
+const { NotFoundError, BadRequestError } = require('../middleware/errors');
+const Match = require('../models/Match');
 
 const validateWinner = (match) => {
   if (!match.winner) return;
@@ -9,10 +9,10 @@ const validateWinner = (match) => {
       else if (cv[1] > cv[0]) acc[1] += 1;
       return acc;
     },
-    [0, 0],
+    [0, 0]
   );
   const winner = winners[0] > winners[1] ? match.player1 : match.player2;
-  if (winner !== match.winner) throw new BadRequestError("invalid winner");
+  if (winner !== match.winner) throw new BadRequestError('invalid winner');
 };
 
 const createOne = async (body) => {
@@ -23,12 +23,12 @@ const createOne = async (body) => {
 };
 
 const getAll = async () => {
-  const matches = await Match.find().populate("court");
+  const matches = await Match.find().populate('court');
   return matches;
 };
 
 const getOne = async (id) => {
-  const match = await Match.findById(id).populate("court");
+  const match = await Match.findById(id).populate('court');
   if (!match) throw new NotFoundError(`match with id ${id} not found`);
   return match;
 };
@@ -46,13 +46,13 @@ const updateOne = async (id, body) => {
   const match = await Match.findByIdAndUpdate(id, body, {
     runValidators: true,
     new: true,
-  }).populate("court");
+  }).populate('court');
   if (!match) throw new NotFoundError(`match with id ${id} not found`);
   return match;
 };
 
 const deleteOne = async (id) => {
-  const match = await Match.findByIdAndDelete(id).populate("court");
+  const match = await Match.findByIdAndDelete(id).populate('court');
   if (!match) throw new NotFoundError(`match with id ${id} not found`);
   return match;
 };
