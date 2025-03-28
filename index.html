@@ -6,11 +6,18 @@
     <title>Document</title>
   </head>
   <body>
-    Hello, world
+    <a
+      href="http://localhost:4000/auth/google?redirect_url=http://localhost:5500/success"
+      >Login with Google!</a
+    >
+    <button id="fetch">Fetch</button>
   </body>
   <script>
     fetch('http://localhost:4000/api/students', {
-      credentials: 'include',
+      headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTFkYjBiM2JkMjJlYWQ0ZDE1NzQ3MiIsIm5hbWUiOiJUaW1teSBSb2JpbGxhcmQiLCJpYXQiOjE3NDMxOTk1NDksImV4cCI6MTc0NTc5MTU0OX0.4G5KL-0Q-r-kSwk5pEkfAoNC0h-rFw4ecLa7HCWzpwU',
+      },
     }).then((res) => {
       res.json().then((data) => {
         console.log('hello', data);
