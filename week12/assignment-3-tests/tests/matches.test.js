@@ -157,6 +157,7 @@ describe('MATCH RESOURCE', () => {
         sets: [
           [0, '<h1>6</h1>'],
           [0, 6],
+          [0, 6],
         ],
       };
 
@@ -172,6 +173,7 @@ describe('MATCH RESOURCE', () => {
         ...newMatch,
         player1: P1_ID,
         sets: [
+          [0, 6],
           [0, 6],
           [0, 6],
         ],
@@ -193,6 +195,7 @@ describe('MATCH RESOURCE', () => {
       player1: P1_ID,
       player2: P2_ID,
       sets: [
+        [6, 0],
         [6, 0],
         [6, 0],
       ],
