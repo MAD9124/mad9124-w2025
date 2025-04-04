@@ -1,6 +1,6 @@
-const { ObjectId } = require("mongodb");
-const { MOCK_COURT_ID } = require("./court");
-const { MOCK_P1_ID, MOCK_P2_ID } = require("./user");
+const { ObjectId } = require('mongodb');
+const { MOCK_COURT_ID } = require('./court');
+const { MOCK_P1_ID, MOCK_P2_ID } = require('./user');
 
 const MOCK_MATCH_ID = new ObjectId();
 
@@ -22,6 +22,7 @@ const mockMatches = [
     player1: MOCK_P1_ID,
     player2: MOCK_P2_ID,
     sets: [
+      [0, 6],
       [0, 6],
       [0, 6],
     ],
