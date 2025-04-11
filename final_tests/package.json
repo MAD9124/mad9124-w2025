@@ -1,0 +1,26 @@
+{
+  "name": "assignment2-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Tim Robillard",
+    "email": "robillt@algonquincollege.com"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
+    "jest": "^29.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "mocha": "^10.3.0",
+    "mongodb": "^6.5.0"
+  },
+  "scripts": {
+    "drop": "NODE_ENV=seed node tests/drop.js",
+    "seed": "NODE_ENV=seed node tests/seed.js",
+    "test": "NODE_ENV=test jest tests/* --runInBand",
+    "test:crud": "jest tests/crud.test.js",
+    "test:get": "jest tests/get.test.js",
+    "test:flow": "jest tests/flow.test.js"
+  }
+}
