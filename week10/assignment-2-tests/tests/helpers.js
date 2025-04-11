@@ -1,26 +1,26 @@
-const assert = require("assert");
-const axios = require("axios");
+const assert = require('assert');
+const axios = require('axios');
 
 const goodResponse = (data, status) => {
-  assert.strictEqual(status, 200, "Expected status 200");
-  assert("data" in data, "Expected key of `data`");
+  assert.strictEqual(status, 200, 'Expected status 200');
+  assert('data' in data, 'Expected key of `data`');
 };
 
 const badRequestResponse = (data, status) => {
-  assert.strictEqual(status, 400, "Expected status 400");
-  assert("error" in data, "Expected key of `data`");
+  assert.strictEqual(status, 400, 'Expected status 400');
+  assert('error' in data, 'Expected key of `data`');
 };
 
 const notFoundResponse = (data, status) => {
-  assert.strictEqual(status, 404, "Expected status 404");
-  assert("error" in data, "Expected key of `data`");
+  assert.strictEqual(status, 404, `Expected status 404, received ${status}`);
+  assert('error' in data, 'Expected key of `data`');
 };
 
 const convertJSON = (d) => {
   // I am not going to be strict about timestamps for this assingment
   // Plus they make the tests more complicated
   const { updatedAt, createdAt, __v, ...converted } = JSON.parse(
-    JSON.stringify(d),
+    JSON.stringify(d)
   );
   return converted;
 };

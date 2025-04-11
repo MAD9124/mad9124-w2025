@@ -66,6 +66,9 @@ describe('MATCH RESOURCE', () => {
   });
 
   describe('create', () => {
+    beforeEach(async () => {
+      await createCourt(mockCourts[0]);
+    });
     it('happy path', async () => {
       const newMatch = {
         court: COURT_ID,
@@ -215,15 +218,17 @@ describe('MATCH RESOURCE', () => {
       goodResponse(data, status);
 
       const [dbMatch] = await getMatches();
-      assert.deepStrictEqual(dbMatch, data.data, 'Expected correct response');
+      assert.deepStrictEqual(data.data, dbMatch, 'Expected correct response');
       assert.deepStrictEqual(
-        { ...updatedMatch, court: EXPECTED_MATCH.court, _id: MATCH_ID },
         data.data,
+        { ...updatedMatch, court: EXPECTED_MATCH.court, _id: MATCH_ID },
         'expected correct data to be saved'
       );
     });
     it('should throw 400 for empty', async () => {
-      const { data, status } = await request('put', `/${MATCH_ID}`, {});
+      const { data, status } = await request('put', `/${MATCH_ID}`, {
+        player1: 'Abcde',
+      });
 
       badRequestResponse(data, status);
     });

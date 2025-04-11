@@ -23,6 +23,7 @@ const mockMatches = [
     sets: [
       [0, 6],
       [0, 6],
+      [0, 6],
     ],
     winner: "tim",
   },
